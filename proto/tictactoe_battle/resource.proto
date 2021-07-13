@@ -1,0 +1,97 @@
+syntax = "proto3";
+package tictactoe_battle;
+
+option go_package = "./tictactoe_battle;tictactoe_battle";
+
+enum Violations {
+  UNDEFINED_VIOLATION = 0;
+}
+
+enum Player {
+  PLAYER_UNKNOWN = 0;
+  PLAYER_A = 1;
+  PLAYER_B = 2;
+  PLAYER_AUDIENCE = 3;
+}
+
+enum Piece {
+  PIECE_UNKNOWN = 0;
+  PIECE_S = 1;
+  PIECE_M = 2;
+  PIECE_L = 3;
+}
+
+enum BattleState {
+  BATTLE_STATE_UNKNOWN = 0;
+  BATTLE_STATE_MEETING = 1;
+  BATTLE_STATE_ERROR = 2;
+  BATTLE_STATE_PLAYER_TURN = 3;
+  BATTLE_STATE_PLAYER_TURN_PICKED = 4;
+  BATTLE_STATE_OPPONENT_TURN = 5;
+  BATTLE_STATE_OPPONENT_TURN_PICKED = 6;
+  BATTLE_STATE_WIN = 7;
+  BATTLE_STATE_LOSE = 8;
+}
+
+enum Position {
+  POSITION_X0Y0 = 0;
+  POSITION_X1Y0 = 1;
+  POSITION_X2Y0 = 2;
+  POSITION_X0Y1 = 3;
+  POSITION_X1Y1 = 4;
+  POSITION_X2Y1 = 5;
+  POSITION_X0Y2 = 6;
+  POSITION_X1Y2 = 7;
+  POSITION_X2Y2 = 8;
+
+  POSITION_UNDEFINED = 99;
+}
+
+enum WinLine {
+  WIN_LINE_UNKNOWN = 0;
+  WIN_LINE_1 = 1;
+  WIN_LINE_2 = 2;
+  WIN_LINE_3 = 3;
+  WIN_LINE_4 = 4;
+  WIN_LINE_5 = 5;
+  WIN_LINE_6 = 6;
+  WIN_LINE_7 = 7;
+  WIN_LINE_8 = 8;
+}
+
+message Login {
+  string login_id = 1;
+  string session_id = 2;
+}
+
+message Holding {
+  uint64 s = 1;
+  uint64 m = 2;
+  uint64 l = 3;
+}
+
+message PieceStack {
+  Player s = 1;
+  Player m = 2;
+  Player l = 3;
+}
+
+message BattleSituation {
+  string room_id = 1;
+  BattleState state = 2;
+  Position PickedPosition = 3;
+  Piece PickedPiece = 4;
+
+  Player player = 10;
+  string player_a_id = 11;
+  string player_b_id = 12;
+
+  Holding holding = 13;
+  // field position
+  // 0 1 2
+  // 3 4 5
+  // 6 7 8
+  repeated PieceStack field = 20;
+
+  WinLine win_line = 30;
+}

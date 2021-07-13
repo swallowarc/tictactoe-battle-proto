@@ -1,0 +1,84 @@
+syntax = "proto3";
+package tictactoe_battle;
+
+option go_package = "./tictactoe_battle;tictactoe_battle";
+
+import "tictactoe_battle/resource.proto";
+
+service TicTacToeBattleService {
+  rpc Login(LoginRequest) returns(LoginResponse);
+  rpc Logout(LogoutRequest) returns(NoBody);
+
+  rpc CreateRoom(CreateRoomRequest) returns(CreateRoomResponse);
+  rpc CanEnterRoom(CanEnterRoomRequest) returns(CanEnterRoomResponse);
+  rpc EnterRoom(EnterRoomRequest) returns(stream BattleSituation);
+  rpc Declaration(DeclarationRequest) returns(NoBody);
+  rpc LeaveRoom(LeaveRoomRequest) returns(NoBody);
+  rpc Attack(AttackRequest) returns (NoBody);
+  rpc Pick(PickRequest) returns (NoBody);
+  rpc ResetBattle(ResetBattleRequest) returns(NoBody);
+}
+
+message NoBody {}
+
+message LoginRequest {
+  Login login = 1;
+}
+
+message LoginResponse {
+  Login login = 1;
+}
+
+message LogoutRequest {
+  Login login = 1;
+}
+
+message CreateRoomRequest {
+  string login_id = 1;
+}
+
+message CreateRoomResponse {
+  string room_id = 1;
+}
+
+message CanEnterRoomRequest {
+  string room_id = 1;
+  string login_id = 2;
+}
+
+message CanEnterRoomResponse {
+  bool can_enter_room = 1;
+}
+
+message EnterRoomRequest {
+  string room_id = 1;
+  string login_id = 2;
+}
+
+message DeclarationRequest {
+  string room_id = 1;
+  string login_id = 2;
+}
+
+message LeaveRoomRequest {
+  string room_id = 1;
+  string login_id = 2;
+}
+
+message AttackRequest {
+  string room_id = 1;
+  Player player = 2;
+  Position position = 3;
+  Piece piece = 4;
+}
+
+message ResetBattleRequest {
+  string room_id = 1;
+}
+
+message PickRequest {
+  string room_id = 1;
+  Player player = 2;
+  Position position = 3;
+  Piece piece = 4;
+}
