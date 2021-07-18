@@ -5,8 +5,8 @@ REVISION := $(shell git rev-parse --short HEAD)
 GO_PKG_PATH=pkg
 DART_PKG_PATH=lib/src
 
-.PHONY: setup/tools submodule submodule-upgrade submodule-reset
-setup-tools:
+.PHONY: setup/tools submodule
+setup/tools:
 	go install \
         google.golang.org/protobuf/cmd/protoc-gen-go \
         google.golang.org/grpc/cmd/protoc-gen-go-grpc
